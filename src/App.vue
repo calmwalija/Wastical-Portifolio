@@ -425,10 +425,9 @@ const faqs = [
                 Start free trial
               </a>
               <a
-                @click.prevent="scrollToSection('pricing')"
+                @click.prevent="scrollToSection('pricing', true)"
                 href="#pricing"
                 class="uk-button uk-button-default offcanvas-cta-secondary"
-                uk-toggle="target: #offcanvas-nav"
               >
                 <i class="fa-solid fa-tag uk-margin-small-right"></i>
                 View pricing
