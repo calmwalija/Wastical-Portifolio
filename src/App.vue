@@ -108,6 +108,7 @@ const toggleCookieCategory = (category) => {
   }
 }
 
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   // Simulate loading completion
@@ -514,10 +515,6 @@ const faqs = [
 
           <div class="steps-container">
             <div class="step-item">
-              <div class="step-number-wrapper">
-                <div class="step-number">01</div>
-                <div class="step-connector"></div>
-              </div>
               <div class="step-content">
                 <div class="step-icon">
                   <i class="fa-solid fa-gear"></i>
@@ -531,10 +528,6 @@ const faqs = [
             </div>
 
             <div class="step-item">
-              <div class="step-number-wrapper">
-                <div class="step-number">02</div>
-                <div class="step-connector"></div>
-              </div>
               <div class="step-content">
                 <div class="step-icon">
                   <i class="fa-solid fa-users"></i>
@@ -548,9 +541,6 @@ const faqs = [
             </div>
 
             <div class="step-item">
-              <div class="step-number-wrapper">
-                <div class="step-number">03</div>
-              </div>
               <div class="step-content">
                 <div class="step-icon">
                   <i class="fa-solid fa-chart-line"></i>
