@@ -40,6 +40,20 @@ const scrollToTop = () => {
   })
 }
 
+const scrollToSection = (sectionId) => {
+  const element = document.getElementById(sectionId)
+  if (element) {
+    const headerOffset = 80 // Account for fixed navigation height
+    const elementPosition = element.offsetTop
+    const offsetPosition = elementPosition - headerOffset
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    })
+  }
+}
+
 const checkCookieConsent = () => {
   const consent = localStorage.getItem('cookieConsent')
   if (!consent) {
@@ -303,7 +317,7 @@ const faqs = [
     >
       <nav class="uk-navbar-container site-navbar" uk-navbar>
         <div class="uk-navbar-left">
-          <a class="uk-navbar-item uk-logo logo-mark" href="#hero">
+          <a class="uk-navbar-item uk-logo logo-mark" @click.prevent="scrollToSection('hero')" href="#hero">
             <span class="logo-icon">
               <img src="./assets/logo.svg" alt="Wastical Logo" class="logo-svg">
             </span>
@@ -316,10 +330,10 @@ const faqs = [
 
         <div class="uk-navbar-right">
           <ul class="uk-navbar-nav uk-visible@m">
-            <li><a href="#features"><i class="fa-solid fa-cube uk-margin-small-right"></i>Product</a></li>
-            <li><a href="#how-it-works"><i class="fa-solid fa-gear uk-margin-small-right"></i>How it works</a></li>
-            <li><a href="#pricing"><i class="fa-solid fa-tag uk-margin-small-right"></i>Pricing</a></li>
-            <li><a href="#faq"><i class="fa-solid fa-circle-question uk-margin-small-right"></i>FAQ</a></li>
+            <li><a @click.prevent="scrollToSection('features')" href="#features"><i class="fa-solid fa-cube uk-margin-small-right"></i>Product</a></li>
+            <li><a @click.prevent="scrollToSection('how-it-works')" href="#how-it-works"><i class="fa-solid fa-gear uk-margin-small-right"></i>How it works</a></li>
+            <li><a @click.prevent="scrollToSection('pricing')" href="#pricing"><i class="fa-solid fa-tag uk-margin-small-right"></i>Pricing</a></li>
+            <li><a @click.prevent="scrollToSection('faq')" href="#faq"><i class="fa-solid fa-circle-question uk-margin-small-right"></i>FAQ</a></li>
           </ul>
           <a
             class="uk-navbar-toggle uk-hidden@m"
@@ -354,31 +368,31 @@ const faqs = [
         <nav class="offcanvas-nav">
           <ul class="uk-nav uk-nav-default">
             <li>
-              <a href="#hero" uk-toggle="target: #offcanvas-nav">
+              <a @click.prevent="scrollToSection('hero')" href="#hero" uk-toggle="target: #offcanvas-nav">
                 <i class="fa-solid fa-home uk-margin-small-right"></i>
                 Home
               </a>
             </li>
             <li>
-              <a href="#features" uk-toggle="target: #offcanvas-nav">
+              <a @click.prevent="scrollToSection('features')" href="#features" uk-toggle="target: #offcanvas-nav">
                 <i class="fa-solid fa-cube uk-margin-small-right"></i>
                 Product
               </a>
             </li>
             <li>
-              <a href="#how-it-works" uk-toggle="target: #offcanvas-nav">
+              <a @click.prevent="scrollToSection('how-it-works')" href="#how-it-works" uk-toggle="target: #offcanvas-nav">
                 <i class="fa-solid fa-gear uk-margin-small-right"></i>
                 How it works
               </a>
             </li>
             <li>
-              <a href="#pricing" uk-toggle="target: #offcanvas-nav">
+              <a @click.prevent="scrollToSection('pricing')" href="#pricing" uk-toggle="target: #offcanvas-nav">
                 <i class="fa-solid fa-tag uk-margin-small-right"></i>
                 Pricing
               </a>
             </li>
             <li>
-              <a href="#faq" uk-toggle="target: #offcanvas-nav">
+              <a @click.prevent="scrollToSection('faq')" href="#faq" uk-toggle="target: #offcanvas-nav">
                 <i class="fa-solid fa-circle-question uk-margin-small-right"></i>
                 FAQ
               </a>
@@ -388,6 +402,7 @@ const faqs = [
           <div class="offcanvas-cta">
             <div class="offcanvas-cta-buttons">
               <a
+                @click.prevent="scrollToSection('contact')"
                 href="#contact"
                 class="uk-button uk-button-primary offcanvas-cta-primary"
                 uk-toggle="target: #offcanvas-nav"
@@ -396,6 +411,7 @@ const faqs = [
                 Start free trial
               </a>
               <a
+                @click.prevent="scrollToSection('pricing')"
                 href="#pricing"
                 class="uk-button uk-button-default offcanvas-cta-secondary"
                 uk-toggle="target: #offcanvas-nav"
@@ -455,6 +471,7 @@ const faqs = [
               >
                 <div>
                   <a
+                    @click.prevent="scrollToSection('contact')"
                     href="#contact"
                     class="uk-button uk-button-primary uk-button-large"
                   >
@@ -463,6 +480,7 @@ const faqs = [
                 </div>
                 <div>
                   <a
+                    @click.prevent="scrollToSection('features')"
                     href="#features"
                     class="uk-button uk-button-default uk-button-large"
                   >
@@ -690,6 +708,7 @@ const faqs = [
                     <!-- <span>{{ plan.lossAversion }}</span> -->
                   <!-- </div> -->
                   <a
+                    @click.prevent="scrollToSection('contact')"
                     href="#contact"
                     class="uk-button uk-button-large"
                     :class="plan.highlighted ? 'uk-button-primary' : 'uk-button-default'"
@@ -869,11 +888,11 @@ const faqs = [
               No credit card required. Cancel anytime.
             </p>
             <div class="cta-actions">
-              <a href="#contact" class="uk-button uk-button-primary  cta-button-primary">
+              <a @click.prevent="scrollToSection('contact')" href="#contact" class="uk-button uk-button-primary  cta-button-primary">
                 <i class="fa-solid fa-play uk-margin-small-right"></i>
                 Start Free Trial
               </a>
-              <a href="#pricing" class="uk-button uk-button-default cta-button-secondary">
+              <a @click.prevent="scrollToSection('pricing')" href="#pricing" class="uk-button uk-button-default cta-button-secondary">
                 <i class="fa-solid fa-tag uk-margin-small-right"></i>
                 View Pricing
               </a>
