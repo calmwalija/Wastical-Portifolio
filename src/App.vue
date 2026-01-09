@@ -40,17 +40,32 @@ const scrollToTop = () => {
   })
 }
 
-const scrollToSection = (sectionId) => {
+const scrollToSection = (sectionId, closeOffcanvas = false) => {
   const element = document.getElementById(sectionId)
   if (element) {
     const headerOffset = 80 // Account for fixed navigation height
     const elementPosition = element.offsetTop
     const offsetPosition = elementPosition - headerOffset
 
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    })
+    // Close offcanvas immediately before scrolling to prevent interference
+    if (closeOffcanvas) {
+      const offcanvas = document.getElementById('offcanvas-nav')
+      if (offcanvas && offcanvas.classList.contains('uk-open')) {
+        offcanvas.classList.remove('uk-open')
+        document.body.classList.remove('uk-offcanvas-page')
+        // Trigger UIKit's hide event to clean up
+        const event = new Event('hidden')
+        offcanvas.dispatchEvent(event)
+      }
+    }
+
+    // Small delay to ensure offcanvas is fully closed before scrolling
+    setTimeout(() => {
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }, closeOffcanvas ? 50 : 0)
   }
 }
 
@@ -368,31 +383,31 @@ const faqs = [
         <nav class="offcanvas-nav">
           <ul class="uk-nav uk-nav-default">
             <li>
-              <a @click.prevent="scrollToSection('hero')" href="#hero" uk-toggle="target: #offcanvas-nav">
+              <a @click.prevent="scrollToSection('hero', true)" href="#hero">
                 <i class="fa-solid fa-home uk-margin-small-right"></i>
                 Home
               </a>
             </li>
             <li>
-              <a @click.prevent="scrollToSection('features')" href="#features" uk-toggle="target: #offcanvas-nav">
+              <a @click.prevent="scrollToSection('features', true)" href="#features">
                 <i class="fa-solid fa-cube uk-margin-small-right"></i>
                 Product
               </a>
             </li>
             <li>
-              <a @click.prevent="scrollToSection('how-it-works')" href="#how-it-works" uk-toggle="target: #offcanvas-nav">
+              <a @click.prevent="scrollToSection('how-it-works', true)" href="#how-it-works">
                 <i class="fa-solid fa-gear uk-margin-small-right"></i>
                 How it works
               </a>
             </li>
             <li>
-              <a @click.prevent="scrollToSection('pricing')" href="#pricing" uk-toggle="target: #offcanvas-nav">
+              <a @click.prevent="scrollToSection('pricing', true)" href="#pricing">
                 <i class="fa-solid fa-tag uk-margin-small-right"></i>
                 Pricing
               </a>
             </li>
             <li>
-              <a @click.prevent="scrollToSection('faq')" href="#faq" uk-toggle="target: #offcanvas-nav">
+              <a @click.prevent="scrollToSection('faq', true)" href="#faq">
                 <i class="fa-solid fa-circle-question uk-margin-small-right"></i>
                 FAQ
               </a>
@@ -402,10 +417,9 @@ const faqs = [
           <div class="offcanvas-cta">
             <div class="offcanvas-cta-buttons">
               <a
-                @click.prevent="scrollToSection('contact')"
+                @click.prevent="scrollToSection('contact', true)"
                 href="#contact"
                 class="uk-button uk-button-primary offcanvas-cta-primary"
-                uk-toggle="target: #offcanvas-nav"
               >
                 <i class="fa-solid fa-play uk-margin-small-right"></i>
                 Start free trial
