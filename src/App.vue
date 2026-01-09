@@ -334,14 +334,92 @@ const faqs = [
     <!-- Mobile Nav -->
     <div id="offcanvas-nav" uk-offcanvas="overlay: true">
       <div class="uk-offcanvas-bar">
-        <ul class="uk-nav uk-nav-default">
-          <li><a href="#hero"><i class="fa-solid fa-home uk-margin-small-right"></i>Home</a></li>
-          <li><a href="#features"><i class="fa-solid fa-cube uk-margin-small-right"></i>Product</a></li>
-          <li><a href="#how-it-works"><i class="fa-solid fa-gear uk-margin-small-right"></i>How it works</a></li>
-          <li><a href="#pricing"><i class="fa-solid fa-tag uk-margin-small-right"></i>Pricing</a></li>
-          <li><a href="#faq"><i class="fa-solid fa-circle-question uk-margin-small-right"></i>FAQ</a></li>
-          <li><a href="#contact"><i class="fa-solid fa-envelope uk-margin-small-right"></i>Contact</a></li>
-        </ul>
+        <div class="offcanvas-header">
+          <a
+            class="offcanvas-logo"
+            href="#hero"
+            uk-toggle="target: #offcanvas-nav"
+          >
+            <span class="logo-icon">
+              <img src="./assets/logo.svg" alt="Wastical Logo" class="logo-svg">
+            </span>
+            <span class="logo-text">
+              <span class="logo-primary">Wastical</span>
+              <span class="logo-sub">Waste Intelligence Platform</span>
+            </span>
+          </a>
+          <button class="offcanvas-close" type="button" uk-close aria-label="Close navigation"></button>
+        </div>
+
+        <nav class="offcanvas-nav">
+          <ul class="uk-nav uk-nav-default">
+            <li>
+              <a href="#hero" uk-toggle="target: #offcanvas-nav">
+                <i class="fa-solid fa-home uk-margin-small-right"></i>
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#features" uk-toggle="target: #offcanvas-nav">
+                <i class="fa-solid fa-cube uk-margin-small-right"></i>
+                Product
+              </a>
+            </li>
+            <li>
+              <a href="#how-it-works" uk-toggle="target: #offcanvas-nav">
+                <i class="fa-solid fa-gear uk-margin-small-right"></i>
+                How it works
+              </a>
+            </li>
+            <li>
+              <a href="#pricing" uk-toggle="target: #offcanvas-nav">
+                <i class="fa-solid fa-tag uk-margin-small-right"></i>
+                Pricing
+              </a>
+            </li>
+            <li>
+              <a href="#faq" uk-toggle="target: #offcanvas-nav">
+                <i class="fa-solid fa-circle-question uk-margin-small-right"></i>
+                FAQ
+              </a>
+            </li>
+          </ul>
+
+          <div class="offcanvas-cta">
+            <div class="offcanvas-cta-buttons">
+              <a
+                href="#contact"
+                class="uk-button uk-button-primary offcanvas-cta-primary"
+                uk-toggle="target: #offcanvas-nav"
+              >
+                <i class="fa-solid fa-play uk-margin-small-right"></i>
+                Start free trial
+              </a>
+              <a
+                href="#pricing"
+                class="uk-button uk-button-default offcanvas-cta-secondary"
+                uk-toggle="target: #offcanvas-nav"
+              >
+                <i class="fa-solid fa-tag uk-margin-small-right"></i>
+                View pricing
+              </a>
+            </div>
+          </div>
+          <div class="offcanvas-footer">
+            <p class="offcanvas-footer-copy">
+              © {{ currentYear }} Wastical. All rights reserved.
+            </p>
+            <div class="offcanvas-footer-links">
+              <a href="https://legal.wastical.app/privacy.html" target="_blank" rel="noopener noreferrer">
+                Privacy
+              </a>
+              <span class="offcanvas-footer-separator">·</span>
+              <a href="https://legal.wastical.app/terms.html" target="_blank" rel="noopener noreferrer">
+                Terms
+              </a>
+            </div>
+          </div>
+        </nav>
       </div>
     </div>
 
