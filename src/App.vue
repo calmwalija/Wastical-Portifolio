@@ -50,10 +50,10 @@ const handleAppStoreClick = (e) => {
 }
 
 const generateEmailLink = () => {
-  const subject = encodeURIComponent('Mobile App Beta Access Request')
+  const subject = encodeURIComponent('Mobile App Download Access Request')
   const body = encodeURIComponent(`Dear Wastical Team,
 
-I am requesting access to your mobile application beta testing program for our waste management operations.
+I am requesting download access to your mobile application for our waste management operations.
 
 Company Information:
 - Company Name: [Your Company Name]
@@ -63,10 +63,10 @@ Company Information:
 Contact Details:
 - Contact Person: [Your Name]
 - Position: [Your Position]
-- Email Address: [your.email@company.com] (This email will be enrolled for beta access)
+- Email Address: [your.email@company.com] (Primary contact for app access)
 - Phone: [Your Phone Number]
 
-Please enroll the above email address for beta access and provide download instructions for the mobile application.
+Please provide download access and instructions for the mobile application.
 
 Best regards,
 [Your Name]`)
@@ -1203,26 +1203,26 @@ const faqs = [
           <div class="app-store-modal-icon">
             <i class="fa-brands fa-google-play"></i>
           </div>
-          <h3 class="app-store-modal-title">App Access Required</h3>
+          <h3 class="app-store-modal-title">Mobile App Access</h3>
         </div>
 
         <div class="app-store-modal-content">
           <p class="app-store-modal-message">
-            Our mobile application is currently in closed beta testing and requires approval for access.
+            Our mobile application is available exclusively for verified waste management professionals and organizations.
           </p>
 
           <div class="app-store-modal-details">
             <div class="app-store-modal-detail-item">
+              <i class="fa-solid fa-building"></i>
+              <span>Professional waste management access</span>
+            </div>
+            <div class="app-store-modal-detail-item">
               <i class="fa-solid fa-shield-alt"></i>
-              <span>Internal testing program</span>
+              <span>Secure verification process</span>
             </div>
             <div class="app-store-modal-detail-item">
-              <i class="fa-solid fa-users"></i>
-              <span>Limited to approved waste management companies</span>
-            </div>
-            <div class="app-store-modal-detail-item">
-              <i class="fa-solid fa-clock"></i>
-              <span>Access granted upon verification</span>
+              <i class="fa-solid fa-mobile-screen-button"></i>
+              <span>Full mobile app functionality</span>
             </div>
           </div>
         </div>
@@ -1233,7 +1233,7 @@ const faqs = [
           </button>
           <a :href="generateEmailLink()" class="app-store-modal-button app-store-modal-button-primary">
             <i class="fa-solid fa-envelope"></i>
-            Request Access
+            Request Download Access
           </a>
         </div>
       </div>
@@ -1282,7 +1282,7 @@ const faqs = [
 .app-store-modal-icon {
   width: 64px;
   height: 64px;
-  background: linear-gradient(135deg, #29a329, #32d296);
+  background: var(--accent-color);
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -1328,7 +1328,7 @@ const faqs = [
 }
 
 .app-store-modal-detail-item i {
-  color: #3b82f6;
+  color: var(--accent-color);
   font-size: 16px;
   width: 20px;
 }
@@ -1356,6 +1356,7 @@ const faqs = [
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
+  font-family: 'Outfit', sans-serif;
   text-decoration: none;
   transition: all 0.2s ease;
   cursor: pointer;
@@ -1375,13 +1376,13 @@ const faqs = [
 }
 
 .app-store-modal-button-primary {
-  background: #3b82f6;
+  background: var(--accent-color);
   color: #ffffff;
   text-decoration: none;
 }
 
 .app-store-modal-button-primary:hover {
-  background: #2563eb;
+  background: #228b22;
   color: #ffffff;
   text-decoration: none;
 }
