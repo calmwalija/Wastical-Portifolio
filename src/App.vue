@@ -29,6 +29,10 @@ const cookieConsent = ref({
   marketing: false
 })
 
+// App store access modal
+const showAppStoreModal = ref(false)
+const requestorEmail = ref('')
+
 const handleScroll = () => {
   showScrollTop.value = window.scrollY > 300
 }
@@ -38,6 +42,36 @@ const scrollToTop = () => {
     top: 0,
     behavior: 'smooth'
   })
+}
+
+const handleAppStoreClick = (e) => {
+  e.preventDefault()
+  showAppStoreModal.value = true
+}
+
+const generateEmailLink = () => {
+  const subject = encodeURIComponent('Mobile App Beta Access Request')
+  const body = encodeURIComponent(`Dear Wastical Team,
+
+I am requesting access to your mobile application beta testing program for our waste management operations.
+
+Company Information:
+- Company Name: [Your Company Name]
+- Location: [City, Country]
+- Industry: Waste Management
+
+Contact Details:
+- Contact Person: [Your Name]
+- Position: [Your Position]
+- Email Address: [your.email@company.com] (This email will be enrolled for beta access)
+- Phone: [Your Phone Number]
+
+Please enroll the above email address for beta access and provide download instructions for the mobile application.
+
+Best regards,
+[Your Name]`)
+
+  return `mailto:support@wastical.app?subject=${subject}&body=${body}`
 }
 
 const scrollToSection = (sectionId, closeOffcanvas = false) => {
@@ -854,10 +888,9 @@ const faqs = [
             <h3 class="app-store-title">Get Wastical on your mobile device</h3>
             <p class="app-store-description">Download our mobile app for iOS and Android</p>
             <div class="app-store-badges">
-              <a 
-                href="https://play.google.com/store/apps/details?id=net.techandgraphics.wastical" 
-                target="_blank" 
-                rel="noopener noreferrer"
+              <a
+                @click.prevent="handleAppStoreClick"
+                href="#"
                 class="app-store-badge"
               >
                 <div class="app-badge-custom app-badge-android">
@@ -1162,9 +1195,247 @@ const faqs = [
         </div>
       </div>
     </div>
+
+    <!-- App Store Access Modal -->
+    <div v-show="showAppStoreModal" class="app-store-modal-overlay" @click="showAppStoreModal = false">
+      <div class="app-store-modal" @click.stop>
+        <div class="app-store-modal-header">
+          <div class="app-store-modal-icon">
+            <i class="fa-brands fa-google-play"></i>
+          </div>
+          <h3 class="app-store-modal-title">App Access Required</h3>
+        </div>
+
+        <div class="app-store-modal-content">
+          <p class="app-store-modal-message">
+            Our mobile application is currently in closed beta testing and requires approval for access.
+          </p>
+
+          <div class="app-store-modal-details">
+            <div class="app-store-modal-detail-item">
+              <i class="fa-solid fa-shield-alt"></i>
+              <span>Internal testing program</span>
+            </div>
+            <div class="app-store-modal-detail-item">
+              <i class="fa-solid fa-users"></i>
+              <span>Limited to approved waste management companies</span>
+            </div>
+            <div class="app-store-modal-detail-item">
+              <i class="fa-solid fa-clock"></i>
+              <span>Access granted upon verification</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-store-modal-actions">
+          <button @click="showAppStoreModal = false" class="app-store-modal-button app-store-modal-button-secondary">
+            Close
+          </button>
+          <a :href="generateEmailLink()" class="app-store-modal-button app-store-modal-button-primary">
+            <i class="fa-solid fa-envelope"></i>
+            Request Access
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style>
 /* Layout-specific overrides live in style.css */
+
+/* App Store Access Modal */
+.app-store-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.app-store-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 480px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.app-store-modal-header {
+  text-align: center;
+  padding: 32px 24px 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.app-store-modal-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #29a329, #32d296);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: white;
+  font-size: 28px;
+}
+
+.app-store-modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.app-store-modal-content {
+  padding: 24px;
+}
+
+.app-store-modal-message {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #64748b;
+  margin: 0 0 24px 0;
+  text-align: center;
+}
+
+.app-store-modal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.app-store-modal-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.app-store-modal-detail-item i {
+  color: #3b82f6;
+  font-size: 16px;
+  width: 20px;
+}
+
+.app-store-modal-detail-item span {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.app-store-modal-actions {
+  padding: 24px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.app-store-modal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+}
+
+.app-store-modal-button-secondary {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.app-store-modal-button-secondary:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.app-store-modal-button-primary {
+  background: #3b82f6;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.app-store-modal-button-primary:hover {
+  background: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Animations */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .app-store-modal {
+    width: 95%;
+    margin: 20px;
+  }
+
+  .app-store-modal-header {
+    padding: 24px 20px 20px;
+  }
+
+  .app-store-modal-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+  }
+
+  .app-store-modal-title {
+    font-size: 20px;
+  }
+
+  .app-store-modal-actions {
+    padding: 20px;
+    flex-direction: column;
+  }
+
+  .app-store-modal-button {
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+}
 </style>
